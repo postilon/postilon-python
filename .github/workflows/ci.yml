@@ -1,0 +1,29 @@
+# CI for the public repository github.com/postilon/postilon-python, which is this folder.
+# (In Postilon's monorepo this file is not at the root, so GitHub ignores it there.)
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest discover -s tests -v
+        env:
+          PYTHONPATH: src
+      - run: python -m pip install build twine mypy && python -m build && python -m twine check dist/*
+        if: matrix.python == '3.13'
+      - run: python -m mypy --strict src/postilon tests
+        if: matrix.python == '3.13'
+        env:
+          MYPYPATH: src

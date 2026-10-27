@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "postilon"
+version = "1.0.0"
+description = "Python SDK for the Postilon transactional email API"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Kulina Pte. Ltd.", email = "hello@postilon.com" }]
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["postilon", "email", "transactional-email", "smtp", "webhooks"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Communications :: Email",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://postilon.com"
+Documentation = "https://postilon.com/docs"
+Source = "https://github.com/postilon/postilon-python"
+Issues = "https://github.com/postilon/postilon-python/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/postilon"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/postilon", "tests", "README.md", "LICENSE"]
